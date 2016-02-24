@@ -38,7 +38,7 @@ module Connection
     puts "Connection Failed."
   end
 
-  def Connection.feed_request(username, num_tweets)
+  def self.feed_request(username, num_tweets)
     path    = "/1.1/statuses/user_timeline.json"
     query   = URI.encode_www_form(
       "screen_name" => username,
@@ -51,6 +51,9 @@ module Connection
     request.oauth! http, @consumer_key, @access_token
     http.start
     tweets_json = http.request request
-    JSON.parse tweets_json.body
+    #tweets_file = File.open("tweets.json", "w+")
+    tweets_hash = {}
+    tweets_hash = JSON.parse(tweets_json.body)
+    tweets_hash
   end
 end

@@ -7,12 +7,15 @@ class TweetFetcher
     @user = Tweeter::Twitter_Account.new(user)
     @count = count
   end
+  
+  def get_tweets_array
+    tweet_collect(@count)
+  end
 
-  def tweet_store
-    tweet_file = File.open("tweets.json", "w+")
-    tweet_file << @user.tweet_collect(@count)
+  def count_words_in_tweet
+    Helper.words_counter
   end
 end
 
-mubarak = TweetFetcher.new("amoralyn", 10)
-puts mubarak.tweet_store
+mubarak = TweetFetcher.new("mubarakadeimam", 10)
+puts mubarak.get_feed_file(10)
