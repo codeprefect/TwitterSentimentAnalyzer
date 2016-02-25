@@ -37,11 +37,11 @@ module Connection
     @response.code
   end
 
-  def self.tweets_request(username, num_tweets)
+  def self.tweets_request(username, date)
     path    = "/1.1/statuses/user_timeline.json"
     query   = URI.encode_www_form(
       "screen_name" => username,
-      "count" => num_tweets)
+      "count" => 300)
     address = URI("#{@base_url}#{path}?#{query}")
     request = Net::HTTP::Get.new address.request_uri
     http = Net::HTTP.new address.host, address.port
@@ -55,7 +55,12 @@ module Connection
     tweets_json.close
     tweets_hash = JSON.parse(File.read("full_tweets_#{username}.json"))
     tweets_only = File.open("tweets_only_#{username}.json", "w+")
-    tweets_hash.each { |tweets| tweets_only << tweets["text"] + " " }
+    tweets_hash.each do |tweets|
+      if Date.parse(tweets["created_at"]) < date
+        break
+      end
+      tweets_only << tweets["text"] + " "
+    end
     tweets_only.close
   end
 end

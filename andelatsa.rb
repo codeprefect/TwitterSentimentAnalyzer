@@ -1,21 +1,22 @@
 require "rubygems"
 require "oauth"
+require "date"
 require "./connection"
 require "./helper"
 
 class TwitterRequest
   include Helper, Connection
-  attr_accessor :username, :count, :tweets_words, :okay_words, :words_rank
-  def initialize(username, count)
+  attr_accessor :username, :date, :tweets_words, :okay_words, :words_rank
+  def initialize(username, date)
     @username = username
-    @count = count
+    @date = date
     @tweets_words = tweet_collect
     @okay_words = Helper.remove_stop_words(tweets_words)
     @words_rank = Helper.rank_words(okay_words)
   end
 
   def tweet_collect
-    Connection.tweets_request(username, count)
+    Connection.tweets_request(self.username, self.date)
     tweets_only = File.open("tweets_only_#{username}.json", "r")
     tweets_words = []
     tweets_only.each do |tweet|
