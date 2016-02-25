@@ -31,11 +31,10 @@ module Connection
 
   # Issue the request and return the response.
   http.start
-  response = http.request request
-  if response.code == "200"
-    puts "Connected."
-  else
-    puts "Connection Failed."
+  @response = http.request request
+
+  def self.response_code
+    @response.code
   end
 
   def self.tweets_request(username, num_tweets)
@@ -56,7 +55,7 @@ module Connection
     tweets_json.close
     tweets_hash = JSON.parse(File.read("full_tweets_#{username}.json"))
     tweets_only = File.open("tweets_only_#{username}.json", "w+")
-    tweets_hash.each{|tweets| tweets_only << tweets['text'] + " "}
+    tweets_hash.each { |tweets| tweets_only << tweets["text"] + " " }
     tweets_only.close
   end
 end
