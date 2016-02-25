@@ -1,4 +1,5 @@
-require "./andelatsa/version"
+require_relative "andelatsa/version"
+require_relative "helper"
 require "rubygems"
 require "oauth"
 require "date"
@@ -14,15 +15,13 @@ print "+#{'=='*24}=+"
 puts "\n\n#{' ' * 1}Please wait while we connect to"\
   " the Twitter API#{' ' * 1}\n\n"
 
-require "./connection"
+require_relative "connection"
 
 if Connection.response_code == "200"
   puts "Connection successful"
 else
   puts "Connection failed"
 end
-
-require "./helper"
 
 class TwitterRequest
   include Helper, Connection

@@ -9,7 +9,7 @@ print "+#{'=='*24}=+"
 puts "\n\n#{' ' * 1}Please wait while we connect to"\
   " the Twitter API#{' ' * 1}\n\n"
 
-require "./andelatsa"
+require_relative "andelatsa"
 
 if Connection.response_code == "200"
   puts "Connection successful"
