@@ -14,8 +14,8 @@ module Andeltsa
       @username = username
       @date = date
       @tweets_words = tweet_collect
-      @okay_words = Helper.remove_stop_words(tweets_words)
-      @words_rank = Helper.rank_words(okay_words)
+      @okay_words = remove_stop_words(tweets_words)
+      @words_rank = rank_words(okay_words)
     end
 
     def tweet_collect
@@ -29,7 +29,7 @@ module Andeltsa
     end
 
     def count_words_in_tweet
-      Helper.words_counter
+      Connection.words_counter
     end
   end
 end

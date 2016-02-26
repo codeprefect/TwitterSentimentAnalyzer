@@ -1,7 +1,7 @@
 module Helper
   # Sort Hashes in descending frequencing
 
-  def self.remove_stop_words(tweets_words)
+  def remove_stop_words(tweets_words)
     tweets = tweets_words
     stop_words = []
     File.open("./stop_words.yml", "r").each do |x|
@@ -19,7 +19,7 @@ module Helper
     stop_words_free.join(" ")
   end
 
-  def self.sort_hash_descend(value)
+  def sort_hash_descend(value)
     sorted_hash = Hash.new
     value.sort_by { |_x, y| -y }.each do |val|
       sorted_hash[val[0]] = val[1]
@@ -43,8 +43,8 @@ module Helper
     word_map
   end
 
-  def self.rank_words(okay_words)
-    Helper.sort_hash_descend(Helper.words_counter(okay_words))
+  def rank_words(okay_words)
+    sort_hash_descend(Helper.words_counter(okay_words))
   end
 
   def self.display_ranking(ranked_words)
