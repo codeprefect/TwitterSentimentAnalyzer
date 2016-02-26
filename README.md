@@ -7,7 +7,7 @@ Welcome to ANDELATSA, its a small application developed in Ruby to carry out sen
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'andelatsa'
+gem 'andeltsa'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install andelatsa
+    $ gem install andeltsa
 
 ## Usage
 
@@ -30,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/andelatsa. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/andeltsa. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
