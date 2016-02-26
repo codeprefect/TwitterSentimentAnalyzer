@@ -48,13 +48,22 @@ module Helper
   end
 
   def self.display_ranking(ranked_words)
+    if ranked_words.length < 1
+
+      exit
+    end
     longest_key = ranked_words.keys.max_by(&:length)
-    print "\n+#{'-'*longest_key.length}--+#{'-'*11}+\n"
+    print "\n+#{'-' * longest_key.length}--+#{'-' * 11}+\n"
     printf "| %-#{longest_key.length}s | %-9s |\n", "Word", "Frequency"
-    print "+#{'-'*longest_key.length}--+#{'-'*11}+\n"
+    print "+#{'-' * longest_key.length}--+#{'-' * 11}+\n"
     ranked_words.each do |key, value|
       printf "| %-#{longest_key.length}s |    %-6s |\n", key, value
     end
-    print "+#{'-'*longest_key.length}--+#{'-'*11}+\n\n"
+    print "+#{'-' * longest_key.length}--+#{'-' * 11}+\n\n"
+  end
+
+  def self.exit_message
+    puts "\nThank you for your time. pls follow @andela and"
+    puts "@mubarakadeimam on Twitter"
   end
 end

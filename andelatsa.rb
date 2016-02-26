@@ -16,7 +16,7 @@ class TwitterRequest
   end
 
   def tweet_collect
-    Connection.tweets_request(self.username, self.date)
+    Connection.tweets_request(username, date)
     tweets_only = File.open("tweets_only_#{username}.json", "r")
     tweets_words = []
     tweets_only.each do |tweet|

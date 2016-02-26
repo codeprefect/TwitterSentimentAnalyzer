@@ -1,17 +1,22 @@
-require 'date'
+require "date"
+require "colorize"
+require_relative "andelatsa"
+require_relative "alchemy_connect"
+# require_relative "connection"
+
 # The CLI
-print "+#{'=='*24}=+"
-puts "\n|#{' ' * 6}Welcome to Twitter Sentiment Analyzer#{' ' * 6}|"
-puts "|#{' ' * 11}An Andela BootCamp Project#{' ' * 12}|"
-puts "|#{' ' * 23}by#{' ' * 24}|"
-puts "|#{' ' * 14}Mubarak Adeshina IMAM#{' ' * 14}|\n"
-print "+#{'=='*24}=+"
+print "+#{'==' * 24}=+".bold.green
+puts "\n|#{' ' * 6}Welcome to Twitter Sentiment Analyzer#{' ' * 6}|".bold.green
+puts "|#{' ' * 11}An Andela BootCamp Project#{' ' * 12}|".bold.green
+puts "|#{' ' * 23}by#{' ' * 24}|".bold.green
+puts "|#{' ' * 14}Mubarak Adeshina IMAM#{' ' * 14}|".bold.green
+print "+#{'==' * 24}=+".bold.green
 puts "\n\n#{' ' * 1}Please wait while we connect to"\
-  " the Twitter API#{' ' * 1}\n\n"
+  " the Twitter API#{' ' * 1}\n".blue
 
-require "./andelatsa"
+response_code = Connection.check_connection
 
-if Connection.response_code == "200"
+if response_code == "200"
   puts "Connection successful"
 else
   puts "Connection failed"
@@ -38,17 +43,25 @@ while condition
   user = TwitterRequest.new(username, since_date)
   Helper.display_ranking(user.words_rank)
 
-  File.delete(
-  "tweets_only_#{username}.json",
-  "full_tweets_#{username}.json")
+  File.delete("full_tweets_#{username}.json")
 
-  puts "Do you want to exit from the app? Yes/No"
+  print "Do you care for a sentiment analysis of the tweets: Yes/No ? "
+  response = gets.chomp.downcase.split("")[0]
+  case response
+  when "y"
+    tweets = File.read("tweets_only_#{username}.json")
+    puts "\nProcessing tweets for @#{username}"
+    SentimentAnalysis.get_sentiment(tweets)
+    File.delete("tweets_only_#{username}.json")
+  when "n"
+    "Okay, thanks"
+  end
+  print "\nDo you want to exit from the app? Yes/No"
   response = gets.chomp.downcase
   case response
   when "yes" || "y"
     condition = false
-    puts "Thank you for your time. pls follow @andela and"
-    puts "@mubarakadeimam on Twitter"
+    Helper.exit_message
   when "no"
     puts "Okay, now you can continue"
   else
